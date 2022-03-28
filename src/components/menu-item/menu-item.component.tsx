@@ -2,9 +2,9 @@ import React from "react";
 
 import "./menu-item.styles.scss"
 
-const MenuItem = ({ title, imageUrl, size }: menuItem) => {
+const MenuItem = ({ title, imageUrl, size, linkUrl }: menuItem) => {
   return (
-    <div className={`menu-item ${size}`}>
+    <div onClick={()=>{window.location.href=linkUrl}} className={`menu-item ${size}`}>
       <div
         className="background-image"
         style={{
