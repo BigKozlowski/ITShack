@@ -12,5 +12,7 @@ type collectionPreview = {
 
 type item = {
     name: string,
-    id: number
+    id: number,
+    price: number,
+    imageUrl: string
 }
