@@ -7,6 +7,7 @@ import NoMatch from "./components/no-match/no-match.component";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
+import SignInPage from "./pages/sign-in-up/sign-in-up.component";
 
 const CPUPage1 = () => {
   let match = useMatch("/shop/cpu/:id");
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/cpu/:id" element={<CPUPage1 />} />
+        <Route path="/signin" element={<SignInPage />} />
       </Routes>
     </div>
   );
