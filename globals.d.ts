@@ -1,3 +1,5 @@
+declare module "*.svg";
+
 type menuItem = {
     title: string,
     imageUrl: string,
