@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useParams, useMatch } from "react-router-dom";
+import { auth } from "./firebase/firebase.utils";
+import firebase from "firebase/compat";
 
 import "./App.css";
 
@@ -21,9 +23,27 @@ const CPUPage1 = () => {
 }
 
 function App() {
+  const [currentUser, setCurrentUser]= useState<firebase.User|null>(null);
+
+  let unsubscrubeFromAuth: null | firebase.Unsubscribe = null;
+
+  useEffect(() => {
+    unsubscrubeFromAuth = auth.onAuthStateChanged(user => {
+      console.log(user);
+      setCurrentUser(user);
+    })
+
+    return function cleanup() {
+      if(unsubscrubeFromAuth){
+        unsubscrubeFromAuth();
+      }
+    }
+  }, [])
+
+
   return (
     <div>
-      <Header />
+      <Header currentUser={currentUser} />
       <Routes>
         <Route path="*" element={<NoMatch />} />
         <Route path="/" element={<HomePage />} />
