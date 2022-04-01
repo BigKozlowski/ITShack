@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Route, Routes, useParams, useMatch } from "react-router-dom";
 import { auth } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
@@ -25,17 +25,16 @@ const CPUPage1 = () => {
 function App() {
   const [currentUser, setCurrentUser]= useState<firebase.User|null>(null);
 
-  let unsubscrubeFromAuth: null | firebase.Unsubscribe = null;
+  let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe>  = useRef(null);
 
   useEffect(() => {
-    unsubscrubeFromAuth = auth.onAuthStateChanged(user => {
-      console.log(user);
+    unsubscrubeFromAuth.current = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
     })
 
     return function cleanup() {
-      if(unsubscrubeFromAuth){
-        unsubscrubeFromAuth();
+      if(unsubscrubeFromAuth.current){
+        unsubscrubeFromAuth.current();
       }
     }
   }, [])
