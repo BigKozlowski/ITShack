@@ -14,7 +14,6 @@ import SignInPage from "./pages/sign-in-up/sign-in-up.component";
 
 const CPUPage1 = () => {
   let match = useMatch("/shop/cpu/:id");
-  console.log(match);
   let { id } = useParams();
   return (
     <div>
