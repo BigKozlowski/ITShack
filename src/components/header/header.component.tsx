@@ -7,32 +7,31 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import "./header.styles.scss";
 
-const Header = ({ currentUser }: {currentUser: firebase.User|null}) => {
-
-
-    return (
-      <div className="header">
-        <Link to="/">
-          <Logo className="logo" />
+const Header = ({ currentUser }: { currentUser: firebase.User | null }) => {
+  return (
+    <div className="header">
+      <Link to="/">
+        <Logo className="logo" />
+      </Link>
+      <div className="options">
+        <Link className="option" to="/shop">
+          SHOP
         </Link>
-        <div className="options">
-          <Link className="option" to="/shop">
-            SHOP
-          </Link>
-          <Link className="option" to="/contact">
-            CONTACT
-          </Link>
-          {
-            currentUser ? 
-            <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>
-            :
-            <Link className="option" to="/signin">
+        <Link className="option" to="/contact">
+          CONTACT
+        </Link>
+        {currentUser ? (
+          <div className="option" onClick={() => auth.signOut()}>
+            SIGN OUT
+          </div>
+        ) : (
+          <Link className="option" to="/signin">
             SIGN IN
-            </Link>
-          }
-        </div>
+          </Link>
+        )}
       </div>
-    );
-}
+    </div>
+  );
+};
 
 export default Header;

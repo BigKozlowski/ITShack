@@ -12,7 +12,7 @@ const FormInput = ({
   value?: string;
   name?: string;
   type?: string;
-  required?: boolean
+  required?: boolean;
 }) => {
   return (
     <div className="group">

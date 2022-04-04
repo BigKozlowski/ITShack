@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Route, Routes, useParams, useMatch } from "react-router-dom";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
 
 import "./App.css";
@@ -14,31 +14,32 @@ import SignInPage from "./pages/sign-in-up/sign-in-up.component";
 const CPUPage1 = () => {
   let match = useMatch("/shop/cpu/:id");
   console.log(match);
-  let {id} = useParams();
+  let { id } = useParams();
   return (
     <div>
       <h1>CPUS PAGE {id}</h1>
     </div>
-  )
-}
+  );
+};
 
 function App() {
-  const [currentUser, setCurrentUser]= useState<firebase.User|null>(null);
+  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
 
-  let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe>  = useRef(null);
+  let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe> =
+    useRef(null);
 
   useEffect(() => {
-    unsubscrubeFromAuth.current = auth.onAuthStateChanged(user => {
+    unsubscrubeFromAuth.current = auth.onAuthStateChanged(async (user) => {
+      createUserProfileDocument(user);
       setCurrentUser(user);
-    })
+    });
 
     return function cleanup() {
-      if(unsubscrubeFromAuth.current){
+      if (unsubscrubeFromAuth.current) {
         unsubscrubeFromAuth.current();
       }
-    }
-  }, [])
-
+    };
+  }, []);
 
   return (
     <div>
