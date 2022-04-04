@@ -18,3 +18,10 @@ type item = {
   price: number;
   imageUrl: string;
 };
+
+type User = {
+  createdAt?: Date;
+  displayName?: string;
+  email?: string;
+  id?: string;
+}

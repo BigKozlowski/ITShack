@@ -2,6 +2,7 @@ import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Route, Routes, useParams, useMatch } from "react-router-dom";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
+import { onSnapshot } from "firebase/firestore";
 
 import "./App.css";
 
@@ -23,15 +24,25 @@ const CPUPage1 = () => {
 };
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe> =
-    useRef(null);
+  let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe> = useRef(null);
 
   useEffect(() => {
-    unsubscrubeFromAuth.current = auth.onAuthStateChanged(async (user) => {
-      createUserProfileDocument(user);
-      setCurrentUser(user);
+    unsubscrubeFromAuth.current = auth.onAuthStateChanged(async (userAuth) => {
+      if(userAuth){
+        const userRef = await createUserProfileDocument(userAuth);
+        if(userRef){
+          onSnapshot(userRef, (snapshot) => {
+            setCurrentUser({
+              id: snapshot.id,
+              ...snapshot.data()
+            })
+          })
+        }
+      } else {
+        setCurrentUser(userAuth);
+      }
     });
 
     return function cleanup() {

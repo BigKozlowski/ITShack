@@ -14,10 +14,7 @@ const CustomButton = ({
   onClick?: any;
 }) => {
   return (
-    <button
-      className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
-      {...otherProps}
-    >
+    <button className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`} {...otherProps}>
       {children}
     </button>
   );

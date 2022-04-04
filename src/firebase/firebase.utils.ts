@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
-import { doc, DocumentReference, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const config = {
   apiKey: "AIzaSyB2dnLlNghs8y6oIZh9MViNRToIby1O97M",
@@ -13,19 +13,14 @@ const config = {
   measurementId: "G-MWFCYQVZVH",
 };
 
-export const createUserProfileDocument = async (
-  userAuth?: any,
-  additionalData?: any
-) => {
+export const createUserProfileDocument = async (userAuth?: firebase.User | null, additionalData?: any) => {
   if (!userAuth) return;
 
   const userRef = doc(firestore, `users/${userAuth.uid}`);
 
-  console.log(userRef);
-
   const snapShot = await getDoc(userRef);
 
-  if (!snapShot.exists) {
+  if (!snapShot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
@@ -42,6 +37,8 @@ export const createUserProfileDocument = async (
       }
     }
   }
+
+  return userRef;
 };
 
 firebase.initializeApp(config);
