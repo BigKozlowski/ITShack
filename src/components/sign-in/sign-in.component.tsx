@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CustomButton from "../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, isFirebaseError, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import "./sign-in.styles.scss";
 
@@ -23,8 +23,18 @@ const SignIn = () => {
         email: "",
         password: "",
       });
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      if(isFirebaseError(e)){
+        switch(e.code){
+          case "auth/user-not-found":
+            alert("User not found");
+            break;
+          
+          case "auth/wrong-password":
+            alert("Incorrect password");
+            break;
+        }
+      }    
     }
   };
 
@@ -59,7 +69,7 @@ const SignIn = () => {
         ></FormInput>
         <div className="buttons">
           <CustomButton type="submit"> Sign in </CustomButton>
-          <CustomButton isGoogleSignIn onClick={() => {
+          <CustomButton isGoogleSignIn type="button" onClick={() => {
             signInWithGoogle();
           }}>
             Sign in with Google

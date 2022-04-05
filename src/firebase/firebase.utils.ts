@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { FirebaseError } from "@firebase/util";
 
 const config = {
   apiKey: "AIzaSyB2dnLlNghs8y6oIZh9MViNRToIby1O97M",
@@ -12,6 +13,10 @@ const config = {
   appId: "1:40005749331:web:711adf1f6d0fcc14b854a6",
   measurementId: "G-MWFCYQVZVH",
 };
+
+export const isFirebaseError = (error: unknown): error is FirebaseError => {
+  return (error as FirebaseError).code !== undefined;
+}
 
 export const createUserProfileDocument = async (userAuth?: firebase.User | null, additionalData?: any) => {
   if (!userAuth) return;
