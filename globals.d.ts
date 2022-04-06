@@ -25,3 +25,7 @@ type User = {
   email?: string;
   id?: string;
 }
+
+type userState = {
+  currentUser: User | null
+}

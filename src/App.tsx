@@ -1,8 +1,9 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Route, Routes, useParams, useMatch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
 import { onSnapshot } from "firebase/firestore";
+import { connect } from "react-redux";
 
 import "./App.css";
 
@@ -11,9 +12,9 @@ import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInPage from "./pages/sign-in-up/sign-in-up.component";
+import { setCurrentUser } from "./redux/user/user.actions";
 
 const CPUPage1 = () => {
-  let match = useMatch("/shop/cpu/:id");
   let { id } = useParams();
   return (
     <div>
@@ -22,8 +23,8 @@ const CPUPage1 = () => {
   );
 };
 
-function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+const App = (props: { setCurrentUser: any; }) => {
+  const {setCurrentUser} = props;
 
   let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe> = useRef(null);
 
@@ -53,7 +54,7 @@ function App() {
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Routes>
         <Route path="*" element={<NoMatch />} />
         <Route path="/" element={<HomePage />} />
@@ -65,4 +66,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: (action: { type: string; payload: User; }) => any) => ({
+  setCurrentUser: (user: User) => dispatch(setCurrentUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(App);
