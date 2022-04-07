@@ -1,5 +1,5 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
 import { onSnapshot } from "firebase/firestore";
@@ -23,7 +23,7 @@ const CPUPage1 = () => {
   );
 };
 
-const App = (props: { setCurrentUser: any; }) => {
+const App = (props: { currentUser?: any; setCurrentUser?: any; }) => {
   const {setCurrentUser} = props;
 
   let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe> = useRef(null);
@@ -60,14 +60,18 @@ const App = (props: { setCurrentUser: any; }) => {
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/cpu/:id" element={<CPUPage1 />} />
-        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signin" element={props.currentUser ? <Navigate replace to="/" /> : <SignInPage />} />
       </Routes>
     </div>
   );
-}
+};
+
+const mapStateToProps = ({user}: {user: userState}) => ({
+  currentUser: user.currentUser
+});
 
 const mapDispatchToProps = (dispatch: (action: { type: string; payload: User; }) => any) => ({
   setCurrentUser: (user: User) => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
