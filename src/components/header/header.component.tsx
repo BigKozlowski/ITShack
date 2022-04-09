@@ -7,7 +7,10 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import "./header.styles.scss";
 
-const Header = ({ currentUser }: { currentUser: User | null }) => {
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+const Header = ({ currentUser, isHidden }: { currentUser: User | null, isHidden: boolean }) => {
   return (
     <div className="header">
       <Link to="/">
@@ -32,13 +35,16 @@ const Header = ({ currentUser }: { currentUser: User | null }) => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {!isHidden ? <CartDropdown />: null}
     </div>
   );
 };
 
-const mapStateToProps = (state: { user: { currentUser: User; }; }) => ({
-  currentUser: state.user.currentUser
-})
+const mapStateToProps = (state: { user: { currentUser: User }, cart: {isHidden: boolean}}) => ({
+  currentUser: state.user.currentUser,
+  isHidden: state.cart.isHidden
+});
 
 export default connect(mapStateToProps)(Header);
