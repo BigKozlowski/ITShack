@@ -70,8 +70,8 @@ const mapStateToProps = ({user}: {user: userState}) => ({
   currentUser: user.currentUser
 });
 
-const mapDispatchToProps = (dispatch: (action: { type: string; payload: User; }) => any) => ({
-  setCurrentUser: (user: User) => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch: (action: { type: string; payload: user; }) => any) => ({
+  setCurrentUser: (user: user) => dispatch(setCurrentUser(user))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

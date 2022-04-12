@@ -10,9 +10,10 @@ import "./header.styles.scss";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-const Header = ({ currentUser, isHidden }: { currentUser: User | null, isHidden: boolean }) => {
+const Header = ({ currentUser, isHidden }: { currentUser: user | null; isHidden: boolean }) => {
   return (
-    <div className="header">
+    <div className="header-fixer">
+      <div className="header">
       <Link to="/">
         <Logo className="logo" />
       </Link>
@@ -37,14 +38,15 @@ const Header = ({ currentUser, isHidden }: { currentUser: User | null, isHidden:
         )}
         <CartIcon />
       </div>
-      {!isHidden ? <CartDropdown />: null}
+      {!isHidden ? <CartDropdown /> : null}
+    </div>
     </div>
   );
 };
 
-const mapStateToProps = (state: { user: { currentUser: User }, cart: {isHidden: boolean}}) => ({
+const mapStateToProps = (state: { user: { currentUser: user }; cart: { isHidden: boolean } }) => ({
   currentUser: state.user.currentUser,
-  isHidden: state.cart.isHidden
+  isHidden: state.cart.isHidden,
 });
 
 export default connect(mapStateToProps)(Header);

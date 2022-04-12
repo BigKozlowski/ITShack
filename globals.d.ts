@@ -19,7 +19,7 @@ type item = {
   imageUrl: string;
 };
 
-type User = {
+type user = {
   createdAt?: Date;
   displayName?: string;
   email?: string;
@@ -28,4 +28,13 @@ type User = {
 
 type userState = {
   currentUser: User | null
+}
+
+type cartItem = {
+  name: string;
+  id: number;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+  totalAmount: number
 }

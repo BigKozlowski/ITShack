@@ -1,51 +1,59 @@
-.header {
+.header-fixer {
+  position: absolute;
   height: 70px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  background-color: rgba(190, 190, 190, 0.9);
-  position: fixed;
   left: 0px;
   top: 0px;
 
-  .logo {
-    margin-left: 20px;
-  }
 
-  .logo-container {
+  .header {
     height: 100%;
-    width: 70px;
-    padding: 25px;
-  }
-
-  .options {
-    width: 50%;
-    height: 100%;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 10px;
-
-    .option {
-      padding: 10px 15px;
-      cursor: pointer;
+    margin-bottom: 25px;
+    background-color: rgba(190, 190, 190, 0.9);
+    position: absolute;
+  
+    .logo {
+      margin-left: 20px;
     }
-
-    .user-menu{
+  
+    .logo-container {
+      height: 100%;
+      width: 70px;
+      padding: 25px;
+    }
+  
+    .options {
+      width: 50%;
+      height: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-
+      justify-content: flex-end;
+      padding-right: 10px;
+  
       .option {
-        padding: 5px 15px;
+        padding: 10px 15px;
+        cursor: pointer;
       }
-
-      p{
-        margin: 0;
+  
+      .user-menu{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+  
+        .option {
+          padding: 5px 15px;
+        }
+  
+        p{
+          margin: 0;
+        }
       }
     }
   }
+
 }
