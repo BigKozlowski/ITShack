@@ -38,3 +38,8 @@ type cartItem = {
   quantity: number;
   totalAmount: number
 }
+
+type cart = {
+  isHidden: boolean;
+  cartItems: cartItem[]
+}
