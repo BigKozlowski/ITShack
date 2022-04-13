@@ -27,7 +27,7 @@ type user = {
 }
 
 type userState = {
-  currentUser: User | null
+  currentUser: user | null
 }
 
 type cartItem = {

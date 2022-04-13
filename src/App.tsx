@@ -4,6 +4,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
 import { onSnapshot } from "firebase/firestore";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import "./App.css";
 
@@ -13,6 +14,7 @@ import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInPage from "./pages/sign-in-up/sign-in-up.component";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from "./redux/user/user.selectors";
 
 const CPUPage1 = () => {
   let { id } = useParams();
@@ -23,22 +25,22 @@ const CPUPage1 = () => {
   );
 };
 
-const App = (props: { currentUser?: any; setCurrentUser?: any; }) => {
-  const {setCurrentUser} = props;
+const App = (props: { currentUser?: any; setCurrentUser?: any }) => {
+  const { setCurrentUser } = props;
 
   let unsubscrubeFromAuth: MutableRefObject<null | firebase.Unsubscribe> = useRef(null);
 
   useEffect(() => {
     unsubscrubeFromAuth.current = auth.onAuthStateChanged(async (userAuth) => {
-      if(userAuth){
+      if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        if(userRef){
+        if (userRef) {
           onSnapshot(userRef, (snapshot) => {
             setCurrentUser({
               id: snapshot.id,
-              ...snapshot.data()
-            })
-          })
+              ...snapshot.data(),
+            });
+          });
         }
       } else {
         setCurrentUser(userAuth);
@@ -66,12 +68,12 @@ const App = (props: { currentUser?: any; setCurrentUser?: any; }) => {
   );
 };
 
-const mapStateToProps = ({user}: {user: userState}) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch: (action: { type: string; payload: user; }) => any) => ({
-  setCurrentUser: (user: user) => dispatch(setCurrentUser(user))
-})
+const mapDispatchToProps = (dispatch: (action: { type: string; payload: user }) => any) => ({
+  setCurrentUser: (user: user) => dispatch(setCurrentUser(user)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
