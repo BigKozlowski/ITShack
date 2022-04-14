@@ -15,26 +15,26 @@ const SignIn = () => {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
 
-    const {email, password} = formData;
+    const { email, password } = formData;
 
-    try{
+    try {
       await auth.signInWithEmailAndPassword(email, password);
       setFormData({
         email: "",
         password: "",
       });
     } catch (e) {
-      if(isFirebaseError(e)){
-        switch(e.code){
+      if (isFirebaseError(e)) {
+        switch (e.code) {
           case "auth/user-not-found":
             alert("User not found");
             break;
-          
+
           case "auth/wrong-password":
             alert("Incorrect password");
             break;
         }
-      }    
+      }
     }
   };
 
@@ -69,9 +69,13 @@ const SignIn = () => {
         ></FormInput>
         <div className="buttons">
           <CustomButton type="submit"> Sign in </CustomButton>
-          <CustomButton isGoogleSignIn type="button" onClick={() => {
-            signInWithGoogle();
-          }}>
+          <CustomButton
+            isGoogleSignIn
+            type="button"
+            onClick={() => {
+              signInWithGoogle();
+            }}
+          >
             Sign in with Google
           </CustomButton>
         </div>

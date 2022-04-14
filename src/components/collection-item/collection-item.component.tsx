@@ -6,8 +6,8 @@ import { addItemToCart } from "../../redux/cart/cart.acrions";
 
 import "./collection-item.styles.scss";
 
-const CollectionItem = ({item, addItemToCart}: {item: item, addItemToCart?: any}) => {
-  const { name, price, imageUrl } = item
+const CollectionItem = ({ item, addItemToCart }: { item: item; addItemToCart?: any }) => {
+  const { name, price, imageUrl } = item;
   return (
     <div className="collection-item">
       <div
@@ -20,13 +20,16 @@ const CollectionItem = ({item, addItemToCart}: {item: item, addItemToCart?: any}
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <CustomButton inverted onClick={() => addItemToCart(item)}> ADD TO CART </CustomButton>
+      <CustomButton inverted onClick={() => addItemToCart(item)}>
+        {" "}
+        ADD TO CART{" "}
+      </CustomButton>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch: (action: { type: string; payload: item; }) => any) => ({
-  addItemToCart: (item: item) => dispatch(addItemToCart(item))
-})
+const mapDispatchToProps = (dispatch: (action: { type: string; payload: item }) => any) => ({
+  addItemToCart: (item: item) => dispatch(addItemToCart(item)),
+});
 
 export default connect(null, mapDispatchToProps)(CollectionItem);
