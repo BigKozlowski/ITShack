@@ -15,6 +15,7 @@ import Header from "./components/header/header.component";
 import SignInPage from "./pages/sign-in-up/sign-in-up.component";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import CheckoutPage from "./pages/checkout/checkout.component";
 
 const CPUPage1 = () => {
   let { id } = useParams();
@@ -63,6 +64,7 @@ const App = (props: { currentUser?: any; setCurrentUser?: any }) => {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/cpu/:id" element={<CPUPage1 />} />
         <Route path="/signin" element={props.currentUser ? <Navigate replace to="/" /> : <SignInPage />} />
+        <Route path="/checkout" element={<CheckoutPage/>} />
       </Routes>
     </div>
   );
