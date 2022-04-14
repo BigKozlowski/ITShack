@@ -6,7 +6,7 @@ import { addItemToCart } from "../../redux/cart/cart.acrions";
 
 import "./collection-item.styles.scss";
 
-const CollectionItem = ({ item, addItemToCart }: { item: item; addItemToCart?: any }) => {
+const CollectionItem = ({ item, addItemToCart }: { item: item; addItemToCart: any }) => {
   const { name, price, imageUrl } = item;
   return (
     <div className="collection-item">
