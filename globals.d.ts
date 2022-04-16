@@ -43,3 +43,5 @@ type cart = {
   isHidden: boolean;
   cartItems: cartItem[]
 }
+
+type collectionUrl = "hats" | "sneakers" | "jackets" | "womens" | "mens"

@@ -61,7 +61,7 @@ const App = (props: { currentUser?: any; setCurrentUser?: any }) => {
       <Routes>
         <Route path="*" element={<NoMatch />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/*" element={<ShopPage />} />
         <Route path="/shop/cpu/:id" element={<CPUPage1 />} />
         <Route path="/signin" element={props.currentUser ? <Navigate replace to="/" /> : <SignInPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
