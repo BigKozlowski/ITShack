@@ -10,6 +10,7 @@ type menuItem = {
 type collectionPreview = {
   title: string;
   items: item[];
+  routeName: string;
 };
 
 type item = {
@@ -24,11 +25,11 @@ type user = {
   displayName?: string;
   email?: string;
   id?: string;
-}
+};
 
 type userState = {
-  currentUser: user | null
-}
+  currentUser: user | null;
+};
 
 type cartItem = {
   name: string;
@@ -36,12 +37,12 @@ type cartItem = {
   price: number;
   imageUrl: string;
   quantity: number;
-  totalAmount: number
-}
+  totalAmount: number;
+};
 
 type cart = {
   isHidden: boolean;
-  cartItems: cartItem[]
-}
+  cartItems: cartItem[];
+};
 
-type collectionUrl = "hats" | "sneakers" | "jackets" | "womens" | "mens"
+type collectionUrl = "hats" | "sneakers" | "jackets" | "womens" | "mens";

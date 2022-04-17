@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { MutableRefObject, useEffect, useRef } from "react";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import firebase from "firebase/compat";
@@ -53,7 +53,7 @@ const App = (props: { currentUser?: any; setCurrentUser?: any }) => {
         unsubscrubeFromAuth.current();
       }
     };
-  }, []);
+  }, [setCurrentUser]);
 
   return (
     <div>

@@ -1,4 +1,3 @@
-import { collection } from "firebase/firestore";
 import { createSelector } from "reselect";
 
 const selectShop = (state: { shop: any }) => state.shop;
