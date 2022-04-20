@@ -1,9 +1,9 @@
 import React from "react";
 
-import "./no-match.styles.scss";
+import { NoMatchContainer } from "./no-match.styles";
 
 const NoMatch = () => {
-  return <p className="no-match">404 Not Found</p>;
+  return <NoMatchContainer className="no-match">404 Not Found</NoMatchContainer>;
 };
 
 export default NoMatch;
