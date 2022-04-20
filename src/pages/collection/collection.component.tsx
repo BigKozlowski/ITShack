@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { selectCollection } from "../../redux/shop/shop.selectors";
-import CollectionItem from "../../components/collection-item/collection-item.component";
 
-import "./collection.styles.scss";
+import { CollectionItemContainer, CollectionItemsContainer, CollectionPageContainer, CollectionTitle } from "./collection.styles";
 
 const CollectionPage = () => {
   let { collectionId } = useParams();
@@ -15,14 +14,14 @@ const CollectionPage = () => {
   const { title, items } = collection;
 
   return (
-    <div className="collection-page">
-      <h2>Collection: {title}</h2>
-      <div className="items">
+    <CollectionPageContainer>
+      <CollectionTitle>Collection: {title}</CollectionTitle>
+      <CollectionItemsContainer>
         {items.map((item: item) => (
-          <CollectionItem key={item.id} item={item} />
+          <CollectionItemContainer key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </CollectionItemsContainer>
+    </CollectionPageContainer>
   );
 };
 
