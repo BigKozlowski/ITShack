@@ -16,13 +16,15 @@ const config = {
 
 export const isFirebaseError = (error: unknown): error is FirebaseError => {
   return (error as FirebaseError).code !== undefined;
-}
+};
 
-export const createUserProfileDocument = async (userAuth?: firebase.User | null, additionalData?: any) => {
+export const createUserProfileDocument = async (
+  userAuth?: firebase.User | null,
+  additionalData?: any
+) => {
   if (!userAuth) return;
 
   const userRef = doc(firestore, `users/${userAuth.uid}`);
-
   const snapShot = await getDoc(userRef);
 
   if (!snapShot.exists()) {
@@ -44,6 +46,40 @@ export const createUserProfileDocument = async (userAuth?: firebase.User | null,
   }
 
   return userRef;
+};
+
+export const addCollectionAndDocuments = async (collectionKey: string, objectsToAdd: any[]) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach((object) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, object);
+  });
+
+  return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (
+  collections: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    console.log(doc.id);
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  return transformedCollection.reduce((acc: any, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
 };
 
 firebase.initializeApp(config);

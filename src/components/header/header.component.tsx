@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { ReactComponent as Logo } from "../../assets/crown.svg";
+import { ReactComponent as Logo } from "../../assets/dude.svg";
 
 import { auth } from "../../firebase/firebase.utils";
 import { selectCartIsHidden } from "../../redux/cart/cart.selectors";

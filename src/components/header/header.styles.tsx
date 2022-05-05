@@ -24,8 +24,12 @@ export const HeaderContainer = styled.div`
 export const LogoContainer = styled(Link)`
   height: 100%;
   width: 70px;
-  padding: 25px;
-  transform: translate(0px, -15%);
+  padding: 0;
+  padding-left: 15px;
+
+  & .logo {
+    height: 100%;
+  }
 `;
 
 export const OptionsContainer = styled.div`
