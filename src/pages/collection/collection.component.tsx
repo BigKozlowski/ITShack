@@ -11,6 +11,8 @@ const CollectionPage = () => {
 
   const collection = useSelector(selectCollection(collectionId));
 
+  console.log(collectionId)
+
   const { title, items } = collection;
 
   return (
